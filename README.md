@@ -1,2 +1,2 @@
 # Smeexer
-Offline seed phrase security enhancements
+Offline seed phrase security enhancements for cryptocurrency wallets
