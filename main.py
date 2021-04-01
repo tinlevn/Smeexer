@@ -1,6 +1,6 @@
 """
 Tin Thanh Le
-Vietnamese Junior Developer
+Junior Developer
 Smeeixer 0.1
 This program will mix your
 cryptocurrency wallet seed phrases,
