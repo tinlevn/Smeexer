@@ -1,6 +1,4 @@
 # Smeexer
-<<<<<<< HEAD
-
 Offline seed phrase security enhancements \
 *Smeexer is a pun on Seed-mixer.*
 ***
@@ -80,4 +78,3 @@ Write all phrases down carefully**\
 BECAUSE YOU CAN REVERSE THE PROCESS TO RECOVER THE ORIGINAL SEEDS AND SEED ORDER**
 =======
 Offline seed phrase security enhancements for cryptocurrency wallets
->>>>>>> 99f2902212401a12d53f02ecadea27e06b94ef04
