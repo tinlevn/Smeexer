@@ -1,15 +1,15 @@
 """
 Tin Thanh Le
 Junior Developer
-Smeeixer 0.1
+Smeexer 0.1
 This program will mix your
 cryptocurrency wallet seed phrases,
 adding another layer of security for
 your offline key storage
 """
 
-
-from mixers import *
+from mixers import seed_validation
+from menu import smeexer_menu
 
 if __name__ == '__main__':
     print("Please enter your 12-word seed phrase with spaces in between: ")
