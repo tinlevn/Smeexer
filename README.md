@@ -59,6 +59,7 @@ to worry about them being destroyed, lost, or stolen.
 
 ## How it works
 ### The mixing methods and their names
+
     Stepping-stone
         Mix every adjacent word of the original phrase from start to end.
         Last step swaps first and last word.
@@ -67,18 +68,19 @@ to worry about them being destroyed, lost, or stolen.
         in the BIP-0039 vocabulary list.
 > A B C D E F G H I J K L
 
-> B A D C F E H G J I K L (every adjacent letter is swapped)
+>> B A D C F E H G J I K L (every adjacent letter is swapped)
 
-> L A D C F E H G J I K B (last step swaps the first and last)
+>>> L A D C F E H G J I K B (last step swaps the first and last)
     
     Odd-Even
         Mix every odd and even word of the original phrase from start to end.
         Here is an example demonstrating the process of Odd-Even mixing
         a 12-word seed phrase. Each individual letter represents a valid word
-        in the BIP-0039 vocabulary list.
+        in the BIP-0039 vocabulary list. 
+        This method works for both 12 word and 24 word seed phrases.
 > A B C D E F G H I J K L
 
-> C D A B G H E F K L I J
+>> C D A B G H E F K L I J
 
 > Explanation: 1st, 3rd; 5th, 7th; 9th, 11th letters are swapped.\
 > 2nd, 4th; 6th, 8th; 10th, 12th letters are swapped.\
@@ -88,29 +90,54 @@ to worry about them being destroyed, lost, or stolen.
         make it look like a regular 24-seed phrase instead of 12.
         The added set contains all BIP-0039 compliant words.
         All words are randomly generated and drawn from the .txt file.
+        This method works for both 12 word and 24 word seed phrases.
 >A B C D E F G H I J K L
 
->A B C D E F G H I J K L M N O P Q R S T U V W X \
-> (Is the original phrase 12-word long or 24?)
+>>A B C D E F G H I J K L M N O P Q R S T U V W X \
+> ( If a bad actor picks up the piece of paper containing such a phrase,\
+> The confusion will be: Is the original phrase 12-word long or 24?)
     
     Fivio
+        This method only works with 12-seed phrase for now. First, it 
+        obfuscates the orignal 12-word phrase. Then the mixing starts.
+        There is a parameter for this method: left or right.
+        Fivio mix essentially breaks the 2 sets of phrases into 3 segments:
+        5 5 5 5 2 2 
+            Left Fivio will scatter the true phrase as demonstrated below.
+> **5** 5 **5** 5 **2** 2   
+> The bold numbers represent the authentic segments of the original seed phrase.
+            
+            Right Fivio will move the ordering to the right:
+> 5 **5** 5 **5** 2 **2**  
+> In this case, the bold numbers (correct segments of seeds) are shifted to the right.
 
     Odd-One-Out
-    
+        This method also only works with 12-seed phrase for now. First, it 
+        obfuscates the orignal 12-word phrase. Then the mixing starts.
+        There is a parameter for this method: left or right; just like fivio mix.
+        Odd-One-Out breaks the 2 sets of phrases into only 2 segments, 
+        or 1 large list and 1 standalone word.
+            Left Odd-One-Out will mix the true phrase as
+> **11** 1 **1** 11\
+> Explanation: The first 11 words and the 13th words combined will return the original list 
+ 
+            Right Odd-One-Out will just move it to the right
+> 11 **1** 1 **11**\
+> Explanation: Add the 12th word from the list to the last 11 words to return the original list
 ---
 
-## How to use
+## How to use - Installation guide
 ### Simple method
 1. Download the .exe file along with the bip0039.txt \
 from /dist directory of this repository.  
 2. Run the .exe file and follow the instructions.
 
-### Advanced method(for experienced users only)
+### Advanced method (for experienced users only)
 1. Download main.py, menu.py, and mixers.py.
 2. Put all python files in one directory on your machine
 3. Use the IDE of your choice, compile main.py and run the program. 
 
-### Alternative method
+### Alternative method (also for advanced user)
 1. Follow the steps in *Advanced Method*
 2. Instead of compiling the .py files in an IDE,  
 install pyinstaller if you do not have in locally.
