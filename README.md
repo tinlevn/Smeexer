@@ -77,4 +77,3 @@ Write all phrases down carefully**\
 **AND PLEASE REMEMBER THE MIXING METHOD CHOSEN TO MIX YOUR SEED PHRASE
 BECAUSE YOU CAN REVERSE THE PROCESS TO RECOVER THE ORIGINAL SEEDS AND SEED ORDER**
 =======
-Offline seed phrase security enhancements for cryptocurrency wallets
