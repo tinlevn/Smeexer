@@ -72,7 +72,7 @@ No data is stored for this application,
 there will never be a feature to export the seeds.\
 All the results of mixing will only be printed and not written\
 to any external files (.csv, .txt, or .pdf).\
-Write all phrases down carefully**\
+Write all phrases down carefully**
 ***
 **AND PLEASE REMEMBER THE MIXING METHOD CHOSEN TO MIX YOUR SEED PHRASE
 BECAUSE YOU CAN REVERSE THE PROCESS TO RECOVER THE ORIGINAL SEEDS AND SEED ORDER**
