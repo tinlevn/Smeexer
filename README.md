@@ -126,11 +126,11 @@ install pyinstaller if you do not have in locally.
 
 ## Roadmap
 - Date: 1st April, 2021
-    - A new obfuscate method
+    - A new obfuscate method (Solved 04/02/2021)
     - Sharding: splitting the original seeds into smaller\
       fractions and mix in random words 
     - A real user interface that is easy to use for everyone\
-        since only advanced users can run it for now\
+        since only advanced users can run it for now
     - A possible function to reverse the scrambling\
     given the correct original mixing method as input 
     - A Notebook file for rapid testing and faster compilation for 
