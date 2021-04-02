@@ -28,6 +28,9 @@ mnemonic_set = set(mnemonic_list)
 
 
 def seed_validation(seed_list):
+    if len(seed_list) not in (12,18,24):
+        print("Please enter a valid seed-phrase set")
+        return False
     for i in seed_list:
         if i not in mnemonic_set:
             return False
@@ -71,15 +74,18 @@ def odd_even(seed_list):
     return oddEvenMix
 
 
-def add_dozen(seed_list):
+# Method to add another set of phrase, usually a 12-word set
+def obfuscate(seed_list):
     newRandomSeedPhrase = []
 
     temp_set = set(seed_list)
     # seed(1) if need to keep random state
-    for _ in range(12):
+    i = 0
+    while i < 12:
         value = randint(0, 2048)
         if mnemonic_list[value] not in temp_set:
             newRandomSeedPhrase.append(mnemonic_list[value])
+            i += 1
     return seed_list + newRandomSeedPhrase
 
 
@@ -145,14 +151,14 @@ def smeexer_menu(seed_list):
             print(odd_even(seed_list))
             smeexer_menu(seed_list)
         elif choice == '4':
-            temp = add_dozen(seed_list)
+            temp = obfuscate(seed_list)
             side = input("Please enter shift direction\n"
                          "Hint:l, L, left, LEFT, Left for left shift\n"
                          "r,R,right,RIGHT,Right for right shift: ")
             print(fivio_mix(temp, side))
             smeexer_menu(seed_list)
         elif choice == '5':
-            temp = add_dozen(seed_list)
+            temp = obfuscate(seed_list)
             side = input("Please enter shift direction\n"
                          "Hint:l, L, left, LEFT, Left for left shift\n"
                          "r,R,right,RIGHT,Right for right shift: "
@@ -169,13 +175,9 @@ def smeexer_menu(seed_list):
 if __name__ == '__main__':
     print("Please enter your 12-word seed phrase with spaces in between: ")
     user_seed_input = input().split()
-    validity = None
-    if len(user_seed_input) != 12:
-        print("Please enter a valid seed-phrase set")
+    validity = seed_validation(user_seed_input)
+    if validity:
+        print("Valid key set")
     else:
-        validity = seed_validation(user_seed_input)
-        if validity:
-            print("Valid key set")
-        else:
-            print("Not valid key set")
+        print("Not valid key set")
     smeexer_menu(user_seed_input)
