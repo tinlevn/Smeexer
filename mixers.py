@@ -121,6 +121,18 @@ def odd_one_out_mix(long_seed, side):
               "r,R,right,RIGHT,Right for right shift")
 
 
+def new_input():
+    print("Enter a new 12-word seed phrase with spaces in between: ")
+    user_seed_input = input().split()
+    validity = seed_validation(user_seed_input)
+    if validity:
+        print("Valid key set")
+        return user_seed_input
+    else:
+        print("Not valid key set")
+        new_input()
+
+
 def smeexer_menu(seed_list):
     print("------------Welcome to Smeexer 0.1------------")
     choice = input("""
@@ -129,9 +141,11 @@ def smeexer_menu(seed_list):
     3: Odd even mix 
     4: Fivio mix
     5: Odd one out mix
-    6: Exit
+    6: Simple obfuscation (for 12-seed phrase only)
+    7: New seed phrase
+    8: Exit
     Select one: """)
-    while choice in ('1', '2', '3', '4', '5', '6'):
+    while choice in ('1', '2', '3', '4', '5', '6','7','8'):
         if choice == '1':
             print_facts()
             smeexer_menu(seed_list)
@@ -157,6 +171,12 @@ def smeexer_menu(seed_list):
             print(odd_one_out_mix(temp, side))
             smeexer_menu(seed_list)
         elif choice == '6':
+            print(obfuscate(seed_list))
+            smeexer_menu(seed_list)
+        elif choice == '7':
+            seed_list = new_input()
+            smeexer_menu(seed_list)
+        elif choice == '8':
             sys.exit()
         else:
             print("Please select a valid option")
