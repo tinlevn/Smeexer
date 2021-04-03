@@ -10,9 +10,9 @@ def smeexer_menu(seed_list):
     3: Odd even mix 
     4: Fivio mix
     5: Odd one out mix
-    6: Simple obfuscation (for 12-seed phrase only)
-    7: New seed phrase
-    8: To be added
+    6: Onion Mix
+    7: Simple obfuscation (for 12-seed phrase only)
+    8: New seed phrase
     9: Exit
     Select one: """)
     while int(choice) in range(10):
@@ -41,13 +41,18 @@ def smeexer_menu(seed_list):
             print(odd_one_out_mix(temp, side))
             smeexer_menu(seed_list)
         elif choice == '6':
-            print(obfuscate(seed_list))
+            side = input("Please enter starting layer\n"
+                         "Options:i,I,in,IN for inner-layer swap\n"
+                         "o,O,out,OUT for outer-layer swap: "
+                         )
+            print(onion_ring(seed_list, side))
             smeexer_menu(seed_list)
         elif choice == '7':
-            seed_list = new_input()
+            print(obfuscate(seed_list))
             smeexer_menu(seed_list)
         elif choice == '8':
-            break
+            seed_list = new_input()
+            smeexer_menu(seed_list)
         elif choice == '9':
             sys.exit()
         else:
