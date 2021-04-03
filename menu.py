@@ -12,9 +12,10 @@ def smeexer_menu(seed_list):
     5: Odd one out mix
     6: Simple obfuscation (for 12-seed phrase only)
     7: New seed phrase
-    8: Exit
+    8: To be added
+    9: Exit
     Select one: """)
-    while choice in ('1', '2', '3', '4', '5', '6', '7', '8'):
+    while int(choice) in range(10):
         if choice == '1':
             print_facts()
             smeexer_menu(seed_list)
@@ -46,6 +47,8 @@ def smeexer_menu(seed_list):
             seed_list = new_input()
             smeexer_menu(seed_list)
         elif choice == '8':
+            break
+        elif choice == '9':
             sys.exit()
         else:
             print("Please select a valid option")

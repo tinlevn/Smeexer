@@ -1,0 +1,2 @@
+### Thoughs and comtemplations 
+
