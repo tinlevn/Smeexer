@@ -11,7 +11,7 @@ However, they are usually inaccessible or too unaffordable for the masses.\
 I envision a future where everybody will be empowered and endowed with the\
 abilities to become their own banks, in this case, having and managing their\
 own crypto-assets. And if such a future is to become a reality, then the lock boxes\
-of the future will not be inches-thick safes but rather simple software wallets that
+of the future will not be inches-thick safes but rather simple software wallets that\
 are safeguarded by the simple, human-readable 12 english words (that are also being\
 translated into many other languages). 
 
