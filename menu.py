@@ -5,7 +5,7 @@ import sys
 def smeexer_menu(seed_list):
     print("------------Welcome to Smeexer 0.1------------")
     choice = input("""
-    1: Fun facts (only 2 for now)
+    1: Simple Fact
     2: Stepping stone mix your phrase
     3: Odd even mix 
     4: Fivio mix
@@ -58,3 +58,18 @@ def smeexer_menu(seed_list):
         else:
             print("Please select a valid option")
             smeexer_menu(seed_list)
+
+def sharding_menu(seed_list):
+    print("------------Sharding Options------------")
+    choice = input("""
+        1: What is sharding?
+        2: 
+        3:  
+        4: 
+        5: 
+        6: 
+        7: 
+        8: 
+        9: 
+        Select one: """)
+    #while int(choice) in range(10):

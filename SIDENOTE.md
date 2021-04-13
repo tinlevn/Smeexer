@@ -1,5 +1,6 @@
-# Thoughts and contemplations 
+# Thoughts and contemplations
 
+---
 ## Original inspiration for Smeexer
 
 There are already many great solutions for storing seed phrases\
@@ -31,3 +32,7 @@ uneconomical, time-consuming, and even unproductive.
 With Smeexer, most people will have an easier time making more copies of their\
 seed phrases either offline, or even put it in their cellphone note apps or\
 cloud note services such as Google Note. 
+---
+### Future directions
+This project may not take off, but I do hope it serves you well.\
+

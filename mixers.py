@@ -77,6 +77,20 @@ def obfuscate(seed_list):
     return seed_list + newRandomSeedPhrase
 
 
+# Random seed generator function
+def generate_seeds(seed_list):
+    random_phrase = []
+    temp_set = set(seed_list)
+    # seed(1)
+    i = 0
+    while i < 12:
+        value = randint(0, 2048)
+        if mnemonic_list[value] not in temp_set:
+            random_phrase.append(mnemonic_list[value])
+            i += 1
+    return random_phrase
+
+
 def fivio_mix(long_seed, side):
     true_seed_1 = long_seed[0:5]
     true_seed_2 = long_seed[5:10]
