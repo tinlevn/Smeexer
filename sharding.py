@@ -16,6 +16,7 @@ def about_sharding():
           , "Source: reddit.com/r/CryptoCurrency/comments/m4gruo/til_the_winklevoss_private_keys_are_stored_on_3/ ")
 
 
+#Sharding function for splitting seed phrase
 def shard(seed_list):
     if len(seed_list) == 12:
         x, y, z = seed_list[0:4], seed_list[4:8], seed_list[8:12]
