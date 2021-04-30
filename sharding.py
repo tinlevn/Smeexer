@@ -16,15 +16,20 @@ def about_sharding():
           , "Source: reddit.com/r/CryptoCurrency/comments/m4gruo/til_the_winklevoss_private_keys_are_stored_on_3/ ")
 
 
-#Sharding function for splitting seed phrase
+def chunks(seed_list, chunk_size):
+    """Yield successive n-sized chunks from list."""
+    for i in range(0, len(seed_list), chunk_size):
+        yield seed_list[i:i + chunk_size]
+
+
+# Sharding function for splitting seed phrase
 def shard(seed_list):
     if len(seed_list) == 12:
-        x, y, z = seed_list[0:4], seed_list[4:8], seed_list[8:12]
-        d = [x, y, z]
+        # x, y, z = seed_list[0:4], seed_list[4:8], seed_list[8:12]
+        d = [segment for segment in chunks(seed_list, 4)]
         print(d)
     elif len(seed_list) == 24:
-        w, x, y, z = seed_list[0:6], seed_list[6:12], seed_list[12:18], seed_list[18:24]
-        d = [w, x, y, z]
+        d = [segment for segment in chunks(seed_list, 6)]
         print(d)
     if len(seed_list) == 12:
         for i in d:
@@ -34,4 +39,17 @@ def shard(seed_list):
             i += generate_seeds(i)[0:6]
     return d
 
-# def coming_soon():
+
+# Sharding with obfuscation
+def staircase_shard(seed_list):
+    if len(seed_list) == 12:
+        x, y, z = seed_list[0:4], seed_list[4:8], seed_list[8:12]
+        d = [x, y, z]
+        print(d)
+    elif len(seed_list) == 24:
+        x, y, z = seed_list[0:8], seed_list[8:16], seed_list[16:24]
+        d = [x, y, z]
+        print(d)
+
+
+# def stack_shard(seed_list):
