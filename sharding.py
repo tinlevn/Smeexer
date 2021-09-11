@@ -43,12 +43,16 @@ def shard(seed_list):
 # Sharding with obfuscation
 def staircase_shard(seed_list):
     if len(seed_list) == 12:
-        x, y, z = seed_list[0:4], seed_list[4:8], seed_list[8:12]
-        d = [x, y, z]
+        dummy_seed = generate_seeds(seed_list)
+        dummy = [segment for segment in chunks(dummy_seed, 4)]
+        d = [segment for segment in chunks(seed_list, 4)]
+        f = [d[0]+dummy[1:],  dummy[0]+d[1]+dummy[2] , dummy[:1]+d[2]]
         print(d)
+        print(f)
     elif len(seed_list) == 24:
-        x, y, z = seed_list[0:8], seed_list[8:16], seed_list[16:24]
-        d = [x, y, z]
+        dummy_seed = generate_seeds(seed_list)
+        dummy_seed += generate_seeds(dummy_seed)
+        d = [segment for segment in chunks(seed_list, 6)]
         print(d)
 
 

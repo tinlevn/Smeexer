@@ -1,2 +1,5 @@
-/venv/
-/build/
+.build
+.venv
+.dist
+__pycache__
+.idea
