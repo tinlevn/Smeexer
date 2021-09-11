@@ -34,5 +34,5 @@ seed phrases either offline, or even put it in their cellphone note apps or\
 cloud note services such as Google Note. 
 ---
 ### Future directions
-This project may not take off, but I do hope it serves you well.\
+This project may not take off, but I do hope it serves you well.
 
