@@ -7,13 +7,13 @@ from mixers import generate_seeds
 
 def about_sharding():
     print(" According to Ben Mezrich’s biographical novel “Bitcoin Millionaires\""
-          , "which chronicles the Winklevoss twins story\n"
-          , "The twins split their private key into 3 shards - referred to as “alpha”, “beta”, and “Charlie”."
-          , "Which were then stored in fireproof/waterproof envelopes, and stashed in unassuming banks.\n"
-          , "To ensure that a natural disaster does not wipe-out one/more of the ‘shards’,"
-          , "they duplicated the process 4 times, in 4 separate time zones for redundancy.\n"
-          , "To all you hodl’ers, take lesson from 2 of the richest BTC investors in the world. PROTECT YOUR KEYS!\n"
-          , "Source: reddit.com/r/CryptoCurrency/comments/m4gruo/til_the_winklevoss_private_keys_are_stored_on_3/ ")
+         ,"which chronicles the Winklevoss twins story\n"
+         ,"The twins split their private key into 3 shards - referred to as “alpha”, “beta”, and “Charlie”."
+         ,"Which were then stored in fireproof/waterproof envelopes, and stashed in unassuming banks.\n"
+         ,"To ensure that a natural disaster does not wipe-out one/more of the ‘shards’,"
+         ,"they duplicated the process 4 times, in 4 separate time zones for redundancy.\n"
+         ,"To all you hodl’ers, take lesson from 2 of the richest BTC investors in the world. PROTECT YOUR KEYS!\n"
+         ,"Source: reddit.com/r/CryptoCurrency/comments/m4gruo/til_the_winklevoss_private_keys_are_stored_on_3/ ")
 
 
 def chunks(seed_list, chunk_size):
@@ -56,4 +56,11 @@ def staircase_shard(seed_list):
         print(d)
 
 
-# def stack_shard(seed_list):
+def compass_shard(seed_list):
+    pass
+
+def seesaw_shard(seed_list):
+    pass
+
+def box_shard(seed_list):
+    pass

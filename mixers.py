@@ -161,5 +161,5 @@ def new_input():
         print("Valid key set")
         return user_seed_input
     else:
-        print("Not valid key set")
+        print("Not valid key set, please try again")
         new_input()

@@ -1,10 +1,10 @@
 from mixers import *
+from sharding import *
 import sys
 
 
 def smeexer_menu(seed_list):
-    print("------------Welcome to Smeexer 0.1------------")
-    choice = input("""
+    choice = input("""Mixer Menu
     1: Simple Fact
     2: Stepping stone mix your phrase
     3: Odd even mix 
@@ -14,7 +14,7 @@ def smeexer_menu(seed_list):
     7: Simple obfuscation (for 12-seed phrase only)
     8: New seed phrase
     9: Exit
-    Select one: """)
+Select one: """)
     while int(choice) in range(10):
         if choice == '1':
             print_facts()
@@ -54,22 +54,40 @@ def smeexer_menu(seed_list):
             seed_list = new_input()
             smeexer_menu(seed_list)
         elif choice == '9':
-            sys.exit()
+            sys.exit("Thank you for using Smeexer")
         else:
             print("Please select a valid option")
             smeexer_menu(seed_list)
+
 
 def sharding_menu(seed_list):
     print("------------Sharding Options------------")
     choice = input("""
         1: What is sharding?
-        2: 
-        3:  
-        4: 
-        5: 
-        6: 
-        7: 
-        8: 
-        9: 
+        2: Simple sharding
+        3: Shard with obfuscation
+            a-Staircase sharding (up or down) 
+            b-Seesaw sharding 
+            c-Compass shard
+            d-Box sharding
+        4: Exit
         Select one: """)
-    #while int(choice) in range(10):
+    while int(choice) in range(5):
+        if choice == '1':
+            about_sharding()
+            sharding_menu(seed_list)
+        elif choice == '2':
+            temp = shard(seed_list)
+            for segment in temp:
+                print(segment)
+            temp.clear()
+            sharding_menu(seed_list)
+        elif choice == '3':
+            shard_choice = input("Choose one of the following by entering the representing letter (a,b,c, or d): ")
+
+            sharding_menu(seed_list)
+        elif choice == '4':
+            sys.exit("Thank you for using Smeexer")
+        else:
+            print("Please select a valid option")
+            smeexer_menu(seed_list)
