@@ -5,7 +5,7 @@ Offline seed phrase security enhancements \
 >For testing purposes, visit [Mnemonic Code Converter](https://iancoleman.io/bip39/)
 > to generate seed phrases.
 ***
-## What is Smeexer?
+## What is Smeexer? :thinking:
 
 Smeexer is an offline Python/script program  
 I created to scramble the ordering of the 
@@ -57,7 +57,7 @@ to worry about them being destroyed, lost, or stolen.
 
 ---
 
-## How it works
+## How it works :mag:
 ### The mixing methods and their names
 
     Stepping-stone
@@ -83,7 +83,7 @@ to worry about them being destroyed, lost, or stolen.
 >> C D A B G H E F K L I J
 
 > Explanation: 1st, 3rd; 5th, 7th; 9th, 11th letters are swapped.\
-> 2nd, 4th; 6th, 8th; 10th, 12th letters are swapped.\
+> 2nd, 4th; 6th, 8th; 10th, 12th letters are swapped.
 
     Obfuscate
         Simply add another dozen (1 seed phrase set) to input to 
