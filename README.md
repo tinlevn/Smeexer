@@ -166,19 +166,19 @@ install pyinstaller if you do not have in locally.
 
 ---
 
-## *Disclaimer* 
-**Please use Smeexer offline due to the risk of
+## :bangbang:*Disclaimer*:bangbang: 
+:heavy_exclamation_mark:**Please use Smeexer offline due to the risk of
 your computer being compromised.**
 
-**No data is stored for this application, 
+:heavy_exclamation_mark:**No data is stored for this application, 
 there will never be a feature to export the seeds.**
 
-**All the results of mixing will only be printed and not written
+:heavy_exclamation_mark:**All the results of mixing will only be printed and not written
 to any external files (.csv, .txt, or .pdf).**
 
-**Write all phrases down carefully**
+:heavy_exclamation_mark:**Write all phrases down carefully**
 
 ---
 
-**PLEASE REMEMBER THE MIXING METHOD CHOSEN TO MIX YOUR SEED PHRASE
+:heavy_exclamation_mark:**PLEASE REMEMBER THE MIXING METHOD CHOSEN TO MIX YOUR SEED PHRASE
 BECAUSE YOU CAN REVERSE THE PROCESS TO RECOVER THE ORIGINAL SEEDS AND SEED ORDER**
