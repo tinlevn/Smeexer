@@ -151,7 +151,7 @@ install pyinstaller if you do not have in locally.
 ---
 
 
-## Roadmap
+## Roadmap :calendar:
 - Date: 1st April, 2021
     - A new obfuscate method (Solved 04/02/2021)
     - Sharding: splitting the original seeds into smaller\
@@ -162,23 +162,25 @@ install pyinstaller if you do not have in locally.
     given the correct original mixing method as input 
     - A Notebook file for rapid testing and faster compilation for 
     knowledgeable users. 
-      
+- Update: 21st September, 2021
+  - asdfad
+  - 
 
 ---
 
-## :bangbang:*Disclaimer*:bangbang: 
-:heavy_exclamation_mark:**Please use Smeexer offline due to the risk of
+## :bangbang: *Disclaimer* :bangbang: 
+:heavy_exclamation_mark: **Please use Smeexer offline due to the risk of
 your computer being compromised.**
 
-:heavy_exclamation_mark:**No data is stored for this application, 
+:heavy_exclamation_mark: **No data is stored for this application, 
 there will never be a feature to export the seeds.**
 
-:heavy_exclamation_mark:**All the results of mixing will only be printed and not written
+:heavy_exclamation_mark: **All the results of mixing will only be printed and not written
 to any external files (.csv, .txt, or .pdf).**
 
-:heavy_exclamation_mark:**Write all phrases down carefully**
+:heavy_exclamation_mark: **Write all phrases down carefully**
 
 ---
 
-:heavy_exclamation_mark:**PLEASE REMEMBER THE MIXING METHOD CHOSEN TO MIX YOUR SEED PHRASE
+:heavy_exclamation_mark: **PLEASE REMEMBER THE MIXING METHOD CHOSEN TO MIX YOUR SEED PHRASE
 BECAUSE YOU CAN REVERSE THE PROCESS TO RECOVER THE ORIGINAL SEEDS AND SEED ORDER**
