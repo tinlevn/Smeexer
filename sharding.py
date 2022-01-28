@@ -7,13 +7,13 @@ from mixers import generate_seeds
 
 def about_sharding():
     print(" According to Ben Mezrich’s biographical novel “Bitcoin Millionaires\""
-         ,"which chronicles the Winklevoss twins story\n"
-         ,"The twins split their private key into 3 shards - referred to as “alpha”, “beta”, and “Charlie”."
-         ,"Which were then stored in fireproof/waterproof envelopes, and stashed in unassuming banks.\n"
-         ,"To ensure that a natural disaster does not wipe-out one/more of the ‘shards’,"
-         ,"they duplicated the process 4 times, in 4 separate time zones for redundancy.\n"
-         ,"To all you hodl’ers, take lesson from 2 of the richest BTC investors in the world. PROTECT YOUR KEYS!\n"
-         ,"Source: reddit.com/r/CryptoCurrency/comments/m4gruo/til_the_winklevoss_private_keys_are_stored_on_3/ ")
+          , "which chronicles the Winklevoss twins story\n"
+          , "The twins split their private key into 3 shards - referred to as “alpha”, “beta”, and “Charlie”."
+          , "Which were then stored in fireproof/waterproof envelopes, and stashed in unassuming banks.\n"
+          , "To ensure that a natural disaster does not wipe-out one/more of the ‘shards’,"
+          , "they duplicated the process 4 times, in 4 separate time zones for redundancy.\n"
+          , "To all you hodl’ers, take lesson from 2 of the richest BTC investors in the world. PROTECT YOUR KEYS!\n"
+          , "Source: reddit.com/r/CryptoCurrency/comments/m4gruo/til_the_winklevoss_private_keys_are_stored_on_3/ ")
 
 
 def chunks(seed_list, chunk_size):
@@ -46,7 +46,7 @@ def staircase_shard(seed_list):
         dummy_seed = generate_seeds(seed_list)
         dummy = [segment for segment in chunks(dummy_seed, 4)]
         d = [segment for segment in chunks(seed_list, 4)]
-        f = [d[0]+dummy[1:],  dummy[0]+d[1]+dummy[2] , dummy[:1]+d[2]]
+        f = [d[0] + dummy[1:], dummy[0] + d[1] + dummy[2], dummy[:1] + d[2]]
         print(d)
         print(f)
     elif len(seed_list) == 24:
@@ -56,11 +56,17 @@ def staircase_shard(seed_list):
         print(d)
 
 
+# It's been so long I forgot but I guess
+# it has something to do with North/south/east/westg
 def compass_shard(seed_list):
     pass
 
+
+# Probably translate bip0039 to my mother language
 def seesaw_shard(seed_list):
     pass
 
+
+# Hopefully this works
 def box_shard(seed_list):
     pass
