@@ -67,6 +67,7 @@ def seesaw_shard(seed_list):
     pass
 
 
-# Hopefully this works
+# Local git needs to have user.email config to
+# github email account in order for commit to be seen
 def box_shard(seed_list):
     pass
