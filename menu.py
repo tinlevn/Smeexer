@@ -1,6 +1,5 @@
 from mixers import *
 from sharding import *
-import animator
 import sys
 
 
@@ -17,10 +16,6 @@ def smeexer_menu(seed_list):
         print("6: Onion ring mix")
         print("7: Simple obfuscation")
         print("8: Seed Sharding options")
-        print("a: [ANIMATION] Watch Stepping-Stone Animation")
-        print("b: [ANIMATION] Watch Odd-Even Animation")
-        print("c: [ANIMATION] Watch Fivio Animation")
-        print("d: [ANIMATION] Watch Onion Ring Animation")
         print("9: Enter new seed phrase")
         print("0: Exit")
         choice = input("Select an option: ").strip().lower()
@@ -52,17 +47,6 @@ def smeexer_menu(seed_list):
             print(" ".join(obfuscate(seed_list)))
         elif choice == '8':
             sharding_menu(seed_list)
-        elif choice == 'a':
-            animator.animate_stepping_stone(seed_list)
-        elif choice == 'b':
-            animator.animate_odd_even(seed_list)
-        elif choice == 'c':
-            dummies = generate_seeds(seed_list)
-            side = input("Enter shift direction (l/left or r/right) [default: left]: ").strip()
-            animator.animate_fivio(seed_list, dummies, side)
-        elif choice == 'd':
-            layer = input("Enter starting layer (i/in or o/out) [default: outer]: ").strip()
-            animator.animate_onion_ring(seed_list, layer)
         elif choice == '9':
             seed_list = new_input()
         elif choice == '0':
@@ -82,7 +66,6 @@ def sharding_menu(seed_list):
         print("4: Compass sharding")
         print("5: Seesaw sharding")
         print("6: Box sharding")
-        print("a: [ANIMATION] Watch Sharding Mechanism Animation")
         print("7: Return to Main Mixer Menu")
         print("0: Exit")
         choice = input("Select a sharding option: ").strip().lower()
@@ -115,8 +98,6 @@ def sharding_menu(seed_list):
             for r_idx, row in enumerate(box, 1):
                 for c_idx, cell in enumerate(row, 1):
                     print(f"Grid Cell ({r_idx},{c_idx}): {' '.join(cell)}")
-        elif choice == 'a':
-            animator.animate_sharding(seed_list)
         elif choice == '7':
             break
         elif choice == '0':

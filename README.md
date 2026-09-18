@@ -127,78 +127,31 @@ to worry about them being destroyed, lost, or stolen.
 
 ---
 
-## Interactive Animations :clapper:
+## Technical Security Assessment & Viability Critique :warning:
 
-Smeexer includes a built-in step-by-step terminal animation engine (`animator.py`) to visually explain the exact inner mechanics of each mixing and sharding algorithm.
+### Security & Cryptographic Risks of Custom Seed Permutations
+1. **Dramatically Reduced Entropy (Brute-Force Vulnerability)**:
+   - A standard 12-word seed has $2048^{12} \approx 2^{132}$ possibilities.
+   - If an attacker obtains a paper note with 12 words that they suspect are scrambled using a simple deterministic permutation algorithm (like Stepping-Stone, Odd-Even, or Onion Ring), there are only $12! = 479,001,600$ total possible orderings.
+   - A GPU brute-force script testing BIP-39 checksums against public key derivations can test hundreds of millions of combinations per second. **An attacker with the scrambled 12-word list can recover the original wallet in seconds to minutes.**
 
-In the menu, select:
-- `a`: Stepping-Stone step-by-step word swapping visual animation
-- `b`: Odd-Even interleaved swapping visual animation
-- `c`: Fivio segmentation and interleaving animation
-- `d`: Onion Ring concentric layer swapping animation
-- `a` (under Sharding Menu): Seed Sharding and chunk extraction visual animation
+2. **BIP-0039 Checksum Failure**:
+   - BIP-39 seed phrases contain an integrated checksum in the final word bits. Scrambling the word order breaks the checksum 99.6% of the time. While this alerts the user that the phrase is modified, it also immediately signals to a knowledgeable attacker that the phrase has been intentionally permuted.
 
----
+3. **Human Error Risk ("Locking Yourself Out")**:
+   - The user must perfectly remember the exact algorithm (and parameters like `left`/`right` or `inner`/`outer`). If the user forgets the scheme or dies, recovery is extremely difficult or impossible for heirs.
 
-## Architectural Evaluation & Technology Modernization Guide :rocket:
-
-### 1. Does Smeexer Need an Update?
-**Yes.** The original 2021 codebase provided a solid algorithmic foundation, but needed modernization in several key areas:
-- **Core Reliability & Input Validation**: Unhandled recursion in seed phrase input (`new_input`), incomplete menu flows, and crash vulnerabilities on unexpected input strings.
-- **Completeness of Features**: Sharding methods (Staircase, Compass, Seesaw, Box) had placeholders or half-implemented stubs that are now fully implemented and tested.
-- **Visual Explainability**: Seed phrase scrambling can feel abstract to users. Terminal-based step-by-step animations (`animator.py`) now bridge this gap by showing word-for-word transformations in real time.
-- **Automated Testing Suite**: A unit test suite (`test_smeexer.py`) covers all validation, mixing, and sharding functions.
-
-### 2. Technology Stack & Modernization Options
-
-When modernizing Smeexer, security is the primary constraint because seed phrase operations **must be executed offline** on air-gapped or non-networked systems.
-
-#### Option A: Enhanced Terminal User Interface (TUI) with Python `Textual` or `Rich` (Recommended for CLI)
-- **Pros**:
-  - Zero-dependency runtime option or self-contained executable.
-  - Keeps 100% offline security guarantees without launching local web browsers or web sockets.
-  - Beautiful keyboard-driven interactive screens, animations, and color-coded seed word tags.
-- **Cons**: Requires Python 3.8+ runtime or bundled PyInstaller binary.
-
-#### Option B: Standalone Single Page Application (SPA) with React / Vue / Svelte + Tailwind CSS
-- **Pros**:
-  - Fluid visual drag-and-drop animations (using Framer Motion or CSS Transitions) showing seed words moving, splitting into shards, or obscuring in real time.
-  - Can be built into a single portable `.html` file (e.g. via Vite singlefile plugin) that runs directly in any browser **completely offline** without node or Python dependencies.
-- **Cons**: Users must manually inspect HTML/JS source to trust that no network requests or telemetry exist.
-
-### 3. Optimization Strategy
-
-| Area | Current Improvements Implemented | Future Potential Optimizations |
-| :--- | :--- | :--- |
-| **Algorithm Safety** | Replaced recursive input with `while` loops; safe input normalization | Cryptographically secure pseudo-random generators (`secrets` module) for decoy BIP-0039 word selection |
-| **Sharding** | Completed Staircase, Compass, Seesaw, and Box sharding algorithms | Implement Shamir's Secret Sharing Scheme (SLIP-0039 standard) for threshold-based recovery |
-| **Reversibility** | Menu guided mixing explanations | Built-in unmix / decryption menu tool allowing users to enter a scrambled phrase + chosen algorithm to reconstruct original seed |
-| **Testing** | 14 automated unit tests covering all functions (`python3 -m unittest discover`) | Property-based testing with `hypothesis` for edge-case BIP-0039 validation |
+### Standard Industry Alternatives
+- **Shamir's Secret Sharing (SLIP-0039 / Shamir Backup)**: Mathematically proven $M$-of-$N$ threshold secret sharing built into modern hardware wallets (e.g. Trezor Model T).
+- **Passphrase Extension (BIP-39 13th / 25th word)**: Uses a custom secret passphrase to derive a completely different wallet, storing the 24 words in one place and the passphrase in memory or separate location.
+- **Multi-Signature Wallets (e.g., 2-of-3 Multisig)**: Requiring 2 independent private keys derived from separate seeds to authorize transactions.
 
 ---
 
 ## How to use - Installation guide
 ### Simple method
-1. Download the executable or repository along with `bip0039.txt`.
+1. Download the repository along with `bip0039.txt`.
 2. Run `python3 main.py` or the compiled binary and follow menu instructions.
-
-### Advanced method (for experienced users only)
-1. Download `main.py`, `menu.py`, `mixers.py`, `sharding.py`, `animator.py`, and `bip0039.txt`.
-2. Run `python3 main.py`.
-3. To run automated tests: `python3 -m unittest discover`.
-
----
-
-## Roadmap :calendar:
-- Date: 1st April, 2021
-    - A new obfuscate method (Solved 04/02/2021)
-    - Sharding: splitting the original seeds into smaller fractions and mix in random words
-- Update: September 2024 / Modernization
-    - Added step-by-step terminal visual animation engine (`animator.py`).
-    - Fixed infinite recursion input bugs and non-integer menu crashes.
-    - Completed full Sharding suite (Staircase, Compass, Seesaw, Box).
-    - Created unit test suite (`test_smeexer.py`) with 100% pass rate.
-    - Updated modern architectural and tech-stack evaluation roadmap.
 
 ---
 
@@ -213,8 +166,3 @@ there will never be a feature to export the seeds.**
 to any external files (.csv, .txt, or .pdf).**
 
 :heavy_exclamation_mark: **Write all phrases down carefully**
-
----
-
-:heavy_exclamation_mark: **PLEASE REMEMBER THE MIXING METHOD CHOSEN TO MIX YOUR SEED PHRASE
-BECAUSE YOU CAN REVERSE THE PROCESS TO RECOVER THE ORIGINAL SEEDS AND SEED ORDER**
