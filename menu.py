@@ -1,93 +1,125 @@
 from mixers import *
 from sharding import *
+import animator
 import sys
 
 
 def smeexer_menu(seed_list):
-    choice = input("""Mixer Menu
-    1: Simple Fact
-    2: Stepping stone mix your phrase
-    3: Odd even mix 
-    4: Fivio mix
-    5: Odd one out mix
-    6: Onion Mix
-    7: Simple obfuscation (for 12-seed phrase only)
-    8: New seed phrase
-    9: Exit
-Select one: """)
-    while int(choice) in range(10):
+    while True:
+        print("\n" + "=" * 45)
+        print("          SMEEXER MIXER MENU          ")
+        print("=" * 45)
+        print("1: Simple Fact")
+        print("2: Stepping stone mix")
+        print("3: Odd even mix")
+        print("4: Fivio mix")
+        print("5: Odd one out mix")
+        print("6: Onion ring mix")
+        print("7: Simple obfuscation")
+        print("8: Seed Sharding options")
+        print("a: [ANIMATION] Watch Stepping-Stone Animation")
+        print("b: [ANIMATION] Watch Odd-Even Animation")
+        print("c: [ANIMATION] Watch Fivio Animation")
+        print("d: [ANIMATION] Watch Onion Ring Animation")
+        print("9: Enter new seed phrase")
+        print("0: Exit")
+        choice = input("Select an option: ").strip().lower()
+
         if choice == '1':
             print_facts()
-            smeexer_menu(seed_list)
         elif choice == '2':
-            print(stepping_stone_mix(seed_list))
-            smeexer_menu(seed_list)
+            print("\nResult of Stepping Stone Mix:")
+            print(" ".join(stepping_stone_mix(seed_list)))
         elif choice == '3':
-            print(odd_even(seed_list))
-            smeexer_menu(seed_list)
+            print("\nResult of Odd-Even Mix:")
+            print(" ".join(odd_even(seed_list)))
         elif choice == '4':
             temp = obfuscate(seed_list)
-            side = input("Please enter shift direction\n"
-                         "Hint:l, L, left, LEFT, Left for left shift\n"
-                         "r,R,right,RIGHT,Right for right shift: ")
-            print(fivio_mix(temp, side))
-            smeexer_menu(seed_list)
+            side = input("Enter shift direction (l/left or r/right) [default: left]: ").strip()
+            print("\nResult of Fivio Mix:")
+            print(" ".join(fivio_mix(temp, side)))
         elif choice == '5':
             temp = obfuscate(seed_list)
-            side = input("Please enter shift direction\n"
-                         "Hint:l, L, left, LEFT, Left for left shift\n"
-                         "r,R,right,RIGHT,Right for right shift: "
-                         )
-            print(odd_one_out_mix(temp, side))
-            smeexer_menu(seed_list)
+            side = input("Enter shift direction (l/left or r/right) [default: left]: ").strip()
+            print("\nResult of Odd-One-Out Mix:")
+            print(" ".join(odd_one_out_mix(temp, side)))
         elif choice == '6':
-            side = input("Please enter starting layer\n"
-                         "Options:i,I,in,IN for inner-layer swap\n"
-                         "o,O,out,OUT for outer-layer swap: "
-                         )
-            print(onion_ring(seed_list, side))
-            smeexer_menu(seed_list)
+            layer = input("Enter starting layer (i/in for inner swap, o/out for outer swap) [default: outer]: ").strip()
+            print("\nResult of Onion Ring Mix:")
+            print(" ".join(onion_ring(seed_list, layer)))
         elif choice == '7':
-            print(obfuscate(seed_list))
-            smeexer_menu(seed_list)
+            print("\nResult of Obfuscation (adds 12 BIP-0039 decoy words):")
+            print(" ".join(obfuscate(seed_list)))
         elif choice == '8':
-            seed_list = new_input()
-            smeexer_menu(seed_list)
+            sharding_menu(seed_list)
+        elif choice == 'a':
+            animator.animate_stepping_stone(seed_list)
+        elif choice == 'b':
+            animator.animate_odd_even(seed_list)
+        elif choice == 'c':
+            dummies = generate_seeds(seed_list)
+            side = input("Enter shift direction (l/left or r/right) [default: left]: ").strip()
+            animator.animate_fivio(seed_list, dummies, side)
+        elif choice == 'd':
+            layer = input("Enter starting layer (i/in or o/out) [default: outer]: ").strip()
+            animator.animate_onion_ring(seed_list, layer)
         elif choice == '9':
-            sys.exit("Thank you for using Smeexer")
+            seed_list = new_input()
+        elif choice == '0':
+            sys.exit("Thank you for using Smeexer!")
         else:
-            print("Please select a valid option")
-            smeexer_menu(seed_list)
+            print("Invalid selection. Please select an option from the menu.")
 
 
 def sharding_menu(seed_list):
-    print("------------Sharding Options------------")
-    choice = input("""
-        1: What is sharding?
-        2: Simple sharding
-        3: Shard with obfuscation
-            a-Staircase sharding (up or down) 
-            b-Seesaw sharding 
-            c-Compass shard
-            d-Box sharding
-        4: Exit
-        Select one: """)
-    while int(choice) in range(5):
+    while True:
+        print("\n" + "-" * 45)
+        print("          SHARDING OPTIONS          ")
+        print("-" * 45)
+        print("1: What is sharding?")
+        print("2: Simple sharding")
+        print("3: Staircase sharding")
+        print("4: Compass sharding")
+        print("5: Seesaw sharding")
+        print("6: Box sharding")
+        print("a: [ANIMATION] Watch Sharding Mechanism Animation")
+        print("7: Return to Main Mixer Menu")
+        print("0: Exit")
+        choice = input("Select a sharding option: ").strip().lower()
+
         if choice == '1':
             about_sharding()
-            sharding_menu(seed_list)
         elif choice == '2':
-            temp = shard(seed_list)
-            for segment in temp:
-                print(segment)
-            temp.clear()
-            sharding_menu(seed_list)
+            shards = shard(seed_list)
+            print("\n=== Simple Shards ===")
+            for idx, s in enumerate(shards, 1):
+                print(f"Shard {idx}: {' '.join(s)}")
         elif choice == '3':
-            shard_choice = input("Choose one of the following by entering the representing letter (a,b,c, or d): ")
-
-            sharding_menu(seed_list)
+            shards = staircase_shard(seed_list)
+            print("\n=== Staircase Shards ===")
+            for idx, s in enumerate(shards, 1):
+                print(f"Shard {idx}: {' '.join(s)}")
         elif choice == '4':
-            sys.exit("Thank you for using Smeexer")
+            compass = compass_shard(seed_list)
+            print("\n=== Compass Shards ===")
+            for direction, s in compass.items():
+                print(f"[{direction}]: {' '.join(s)}")
+        elif choice == '5':
+            seesaw = seesaw_shard(seed_list)
+            print("\n=== Seesaw Shards ===")
+            for name, s in seesaw.items():
+                print(f"[{name}]: {' '.join(s)}")
+        elif choice == '6':
+            box = box_shard(seed_list)
+            print("\n=== Box Grid Shards ===")
+            for r_idx, row in enumerate(box, 1):
+                for c_idx, cell in enumerate(row, 1):
+                    print(f"Grid Cell ({r_idx},{c_idx}): {' '.join(cell)}")
+        elif choice == 'a':
+            animator.animate_sharding(seed_list)
+        elif choice == '7':
+            break
+        elif choice == '0':
+            sys.exit("Thank you for using Smeexer!")
         else:
-            print("Please select a valid option")
-            smeexer_menu(seed_list)
+            print("Invalid option. Please select an option from the menu.")

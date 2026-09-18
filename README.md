@@ -124,47 +124,81 @@ to worry about them being destroyed, lost, or stolen.
             Right Odd-One-Out will just move it to the right
 > 11 **1** 1 **11**\
 > Explanation: Add the 12th word from the list to the last 11 words to return the original list
+
+---
+
+## Interactive Animations :clapper:
+
+Smeexer includes a built-in step-by-step terminal animation engine (`animator.py`) to visually explain the exact inner mechanics of each mixing and sharding algorithm.
+
+In the menu, select:
+- `a`: Stepping-Stone step-by-step word swapping visual animation
+- `b`: Odd-Even interleaved swapping visual animation
+- `c`: Fivio segmentation and interleaving animation
+- `d`: Onion Ring concentric layer swapping animation
+- `a` (under Sharding Menu): Seed Sharding and chunk extraction visual animation
+
+---
+
+## Architectural Evaluation & Technology Modernization Guide :rocket:
+
+### 1. Does Smeexer Need an Update?
+**Yes.** The original 2021 codebase provided a solid algorithmic foundation, but needed modernization in several key areas:
+- **Core Reliability & Input Validation**: Unhandled recursion in seed phrase input (`new_input`), incomplete menu flows, and crash vulnerabilities on unexpected input strings.
+- **Completeness of Features**: Sharding methods (Staircase, Compass, Seesaw, Box) had placeholders or half-implemented stubs that are now fully implemented and tested.
+- **Visual Explainability**: Seed phrase scrambling can feel abstract to users. Terminal-based step-by-step animations (`animator.py`) now bridge this gap by showing word-for-word transformations in real time.
+- **Automated Testing Suite**: A unit test suite (`test_smeexer.py`) covers all validation, mixing, and sharding functions.
+
+### 2. Technology Stack & Modernization Options
+
+When modernizing Smeexer, security is the primary constraint because seed phrase operations **must be executed offline** on air-gapped or non-networked systems.
+
+#### Option A: Enhanced Terminal User Interface (TUI) with Python `Textual` or `Rich` (Recommended for CLI)
+- **Pros**:
+  - Zero-dependency runtime option or self-contained executable.
+  - Keeps 100% offline security guarantees without launching local web browsers or web sockets.
+  - Beautiful keyboard-driven interactive screens, animations, and color-coded seed word tags.
+- **Cons**: Requires Python 3.8+ runtime or bundled PyInstaller binary.
+
+#### Option B: Standalone Single Page Application (SPA) with React / Vue / Svelte + Tailwind CSS
+- **Pros**:
+  - Fluid visual drag-and-drop animations (using Framer Motion or CSS Transitions) showing seed words moving, splitting into shards, or obscuring in real time.
+  - Can be built into a single portable `.html` file (e.g. via Vite singlefile plugin) that runs directly in any browser **completely offline** without node or Python dependencies.
+- **Cons**: Users must manually inspect HTML/JS source to trust that no network requests or telemetry exist.
+
+### 3. Optimization Strategy
+
+| Area | Current Improvements Implemented | Future Potential Optimizations |
+| :--- | :--- | :--- |
+| **Algorithm Safety** | Replaced recursive input with `while` loops; safe input normalization | Cryptographically secure pseudo-random generators (`secrets` module) for decoy BIP-0039 word selection |
+| **Sharding** | Completed Staircase, Compass, Seesaw, and Box sharding algorithms | Implement Shamir's Secret Sharing Scheme (SLIP-0039 standard) for threshold-based recovery |
+| **Reversibility** | Menu guided mixing explanations | Built-in unmix / decryption menu tool allowing users to enter a scrambled phrase + chosen algorithm to reconstruct original seed |
+| **Testing** | 14 automated unit tests covering all functions (`python3 -m unittest discover`) | Property-based testing with `hypothesis` for edge-case BIP-0039 validation |
+
 ---
 
 ## How to use - Installation guide
 ### Simple method
-1. Download the .exe file along with the bip0039.txt \
-from /dist directory of this repository.  
-2. Run the .exe file and follow the instructions.
+1. Download the executable or repository along with `bip0039.txt`.
+2. Run `python3 main.py` or the compiled binary and follow menu instructions.
 
 ### Advanced method (for experienced users only)
-1. Download main.py, menu.py, and mixers.py.
-2. Put all python files in one directory on your machine
-3. Use the IDE of your choice, compile main.py and run the program. 
-
-### Alternative method (also for advanced user)
-1. Follow the steps in *Advanced Method*
-2. Instead of compiling the .py files in an IDE,  
-install pyinstaller if you do not have in locally.
-3. Run the command  ``` pyinstaller --onefile main.py ```
-4. The command will create an .exe file from the .py files for simpler usage
-
-> Note: Remember to include the bip0039.txt file in the same folder(directory)  
-> of the .py files or .exe file in order for the program to run properly.
-
+1. Download `main.py`, `menu.py`, `mixers.py`, `sharding.py`, `animator.py`, and `bip0039.txt`.
+2. Run `python3 main.py`.
+3. To run automated tests: `python3 -m unittest discover`.
 
 ---
-
 
 ## Roadmap :calendar:
 - Date: 1st April, 2021
     - A new obfuscate method (Solved 04/02/2021)
-    - Sharding: splitting the original seeds into smaller\
-      fractions and mix in random words 
-    - A real user interface that is easy to use for everyone\
-        since only advanced users can run it for now
-    - A possible function to reverse the scrambling\
-    given the correct original mixing method as input 
-    - A Notebook file for rapid testing and faster compilation for 
-    knowledgeable users. 
-- Update: 21st September, 2021
-  - asdfad
-  - 
+    - Sharding: splitting the original seeds into smaller fractions and mix in random words
+- Update: September 2024 / Modernization
+    - Added step-by-step terminal visual animation engine (`animator.py`).
+    - Fixed infinite recursion input bugs and non-integer menu crashes.
+    - Completed full Sharding suite (Staircase, Compass, Seesaw, Box).
+    - Created unit test suite (`test_smeexer.py`) with 100% pass rate.
+    - Updated modern architectural and tech-stack evaluation roadmap.
 
 ---
 

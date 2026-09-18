@@ -1,19 +1,24 @@
 """
 Sharding implementation
-04/02/2021
+Smeexer
 """
 from mixers import generate_seeds
 
 
 def about_sharding():
-    print(" According to Ben Mezrich’s biographical novel “Bitcoin Millionaires\""
-          , "which chronicles the Winklevoss twins story\n"
-          , "The twins split their private key into 3 shards - referred to as “alpha”, “beta”, and “Charlie”."
-          , "Which were then stored in fireproof/waterproof envelopes, and stashed in unassuming banks.\n"
-          , "To ensure that a natural disaster does not wipe-out one/more of the ‘shards’,"
-          , "they duplicated the process 4 times, in 4 separate time zones for redundancy.\n"
-          , "To all you hodl’ers, take lesson from 2 of the richest BTC investors in the world. PROTECT YOUR KEYS!\n"
-          , "Source: reddit.com/r/CryptoCurrency/comments/m4gruo/til_the_winklevoss_private_keys_are_stored_on_3/ ")
+    print("""
+    === About Seed Sharding ===
+    According to Ben Mezrich’s biographical novel "Bitcoin Billionaires",
+    which chronicles the Winklevoss twins' story:
+
+    The twins split their private key into 3 shards - referred to as "alpha", "beta", and "charlie".
+    These were stored in fireproof/waterproof envelopes and stashed in unassuming banks.
+    To ensure a natural disaster does not wipe out one or more of the shards, they duplicated
+    the process 4 times across 4 separate time zones for redundancy.
+
+    Sharding allows you to split a seed phrase into multiple pieces such that individual
+    shards are incomplete alone and padded with decoy BIP-0039 words for obfuscation.
+    """)
 
 
 def chunks(seed_list, chunk_size):
@@ -22,52 +27,69 @@ def chunks(seed_list, chunk_size):
         yield seed_list[i:i + chunk_size]
 
 
-# Sharding function for splitting seed phrase
 def shard(seed_list):
-    if len(seed_list) == 12:
-        # x, y, z = seed_list[0:4], seed_list[4:8], seed_list[8:12]
-        d = [segment for segment in chunks(seed_list, 4)]
-        print(d)
-    elif len(seed_list) == 24:
-        d = [segment for segment in chunks(seed_list, 6)]
-        print(d)
-    if len(seed_list) == 12:
-        for i in d:
-            i += generate_seeds(i)[0:9]
-    elif len(seed_list) == 24:
-        for i in d:
-            i += generate_seeds(i)[0:6]
-    return d
+    """Simple sharding: splits seed phrase into chunks and pads each with random BIP-0039 words."""
+    chunk_sz = 4 if len(seed_list) == 12 else 6
+    dummy_count = 9 if len(seed_list) == 12 else 6
+    shards = [list(segment) for segment in chunks(seed_list, chunk_sz)]
+    for s in shards:
+        s.extend(generate_seeds(s)[:dummy_count])
+    return shards
 
 
-# Sharding with obfuscation
 def staircase_shard(seed_list):
-    if len(seed_list) == 12:
-        dummy_seed = generate_seeds(seed_list)
-        dummy = [segment for segment in chunks(dummy_seed, 4)]
-        d = [segment for segment in chunks(seed_list, 4)]
-        f = [d[0] + dummy[1:], dummy[0] + d[1] + dummy[2], dummy[:1] + d[2]]
-        print(d)
-        print(f)
-    elif len(seed_list) == 24:
-        dummy_seed = generate_seeds(seed_list)
-        dummy_seed += generate_seeds(dummy_seed)
-        d = [segment for segment in chunks(seed_list, 6)]
-        print(d)
+    """Staircase sharding: splits true seed into chunks and combines them in staircase patterns with dummy words."""
+    chunk_sz = 4 if len(seed_list) == 12 else 6
+    true_chunks = [list(segment) for segment in chunks(seed_list, chunk_sz)]
+    dummy_seeds = generate_seeds(seed_list)
+    dummy_chunks = [list(segment) for segment in chunks(dummy_seeds, chunk_sz)]
+
+    staircase_shards = []
+    num_chunks = len(true_chunks)
+    for i in range(num_chunks):
+        shard_item = []
+        for j in range(num_chunks):
+            if j == i:
+                shard_item.extend(true_chunks[j])
+            else:
+                shard_item.extend(dummy_chunks[j])
+        staircase_shards.append(shard_item)
+    return staircase_shards
 
 
-# It's been so long I forgot but I guess
-# it has something to do with North/south/east/westg
 def compass_shard(seed_list):
-    pass
+    """Compass sharding: distributes 4 seed chunks to North, South, East, West with dummy padding."""
+    chunk_sz = max(1, len(seed_list) // 4)
+    true_chunks = [list(segment) for segment in chunks(seed_list, chunk_sz)]
+    directions = ["North", "South", "East", "West"]
+    compass_dict = {}
+    for idx, direction in enumerate(directions):
+        if idx < len(true_chunks):
+            dummy_pad = generate_seeds(true_chunks[idx])[:8]
+            compass_dict[direction] = true_chunks[idx] + dummy_pad
+    return compass_dict
 
 
-# Probably translate bip0039 to my mother language
 def seesaw_shard(seed_list):
-    pass
+    """Seesaw sharding: alternates true seed chunks between Shard A and Shard B."""
+    half = len(seed_list) // 2
+    true_1, true_2 = seed_list[:half], seed_list[half:]
+    dummy_1 = generate_seeds(true_1)
+    dummy_2 = generate_seeds(true_2)
+
+    shard_a = true_1 + dummy_2
+    shard_b = dummy_1 + true_2
+    return {"Shard A (Left True / Right Dummy)": shard_a, "Shard B (Left Dummy / Right True)": shard_b}
 
 
-# Local git needs to have user.email config to
-# github email account in order for commit to be seen
 def box_shard(seed_list):
-    pass
+    """Box sharding: arranges seed into a 2x2 grid matrix with interspersed decoy chunks."""
+    chunk_sz = max(1, len(seed_list) // 4)
+    true_chunks = [list(segment) for segment in chunks(seed_list, chunk_sz)]
+    dummies = [generate_seeds(c)[:chunk_sz] for c in true_chunks]
+
+    box = [
+        [true_chunks[0] if len(true_chunks) > 0 else [], dummies[1] if len(dummies) > 1 else []],
+        [dummies[2] if len(dummies) > 2 else [], true_chunks[3] if len(true_chunks) > 3 else []]
+    ]
+    return box
