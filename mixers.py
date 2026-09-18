@@ -18,7 +18,6 @@ mnemonic_set = set(mnemonic_list)
 
 def seed_validation(seed_list):
     if len(seed_list) not in (12, 18, 24):
-        print("Please enter a valid seed-phrase set")
         return False
     for i in seed_list:
         if i not in mnemonic_set:
@@ -99,18 +98,15 @@ def fivio_mix(long_seed, side):
     faux_seed_1 = long_seed[12:17]
     faux_seed_2 = long_seed[17:22]
     faux_seed_3 = long_seed[22:24]
-    if side in {"l", "L", "left", "LEFT", "Left"}:
+    normalized_side = str(side).lower().strip()
+    if normalized_side in {"l", "left"}:
         return true_seed_1 + faux_seed_1 + \
                true_seed_2 + faux_seed_2 + \
                true_seed_3 + faux_seed_3
-    elif side in {"r", "R", "right", "RIGHT", "Right"}:
+    else:
         return faux_seed_1 + true_seed_1 + \
                faux_seed_2 + true_seed_2 + \
                faux_seed_3 + true_seed_3
-    else:
-        print("Please enter a valid side operation:\n"
-              "Hint:l, L, left, LEFT, Left for left shift\n"
-              "r,R,right,RIGHT,Right for right shift")
 
 
 def odd_one_out_mix(long_seed, side):
@@ -120,33 +116,27 @@ def odd_one_out_mix(long_seed, side):
     faux_seed_1 = long_seed[13:24]
     faux_seed_2 = [long_seed[12]]
 
-    if side in {"l", "L", "left", "LEFT", "Left"}:
+    normalized_side = str(side).lower().strip()
+    if normalized_side in {"l", "left"}:
         return true_seed_1 + faux_seed_2 + \
                true_seed_2 + faux_seed_1
-    elif side in {"r", "R", "right", "RIGHT", "Right"}:
+    else:
         return faux_seed_1 + true_seed_2 + \
                faux_seed_2 + true_seed_1
-    else:
-        print("Please enter a valid side operation:\n"
-              "Hint:l, L, left, LEFT, Left for left shift\n"
-              "r,R,right,RIGHT,Right for right shift")
 
 
 def onion_ring(seed_list, layer):
     set_length = len(seed_list)
     onion = seed_list.copy()
 
-    # Only need to iterate half the length to
-    # swap all elements
     ring_size = set_length // 2
+    normalized_layer = str(layer).lower().strip()
 
-    if layer in {"out", "OUT", "o", "O"}:
-        start = 0
-    elif layer in {"in", "IN", "i", "I"}:
+    if normalized_layer in {"in", "i"}:
         start = 1
     else:
-        print("Please choose in(IN,i,I) or\
-              out(OUT,o,O)")
+        start = 0
+
     # Swap loop
     for i in range(start, ring_size, 2):
         onion[i], onion[-i - 1] = onion[-i - 1], onion[i]
@@ -154,12 +144,11 @@ def onion_ring(seed_list, layer):
 
 
 def new_input():
-    print("Enter a new 12-word seed phrase with spaces in between: ")
-    user_seed_input = input().split()
-    validity = seed_validation(user_seed_input)
-    if validity:
-        print("Valid key set")
-        return user_seed_input
-    else:
-        print("Not valid key set, please try again")
-        new_input()
+    while True:
+        print("Enter a 12, 18, or 24-word seed phrase with spaces in between: ")
+        user_seed_input = input().split()
+        if seed_validation(user_seed_input):
+            print("Valid key set!")
+            return user_seed_input
+        else:
+            print("Invalid key set (length must be 12, 18, or 24, and all words must be valid BIP-0039 words). Please try again.\n")
